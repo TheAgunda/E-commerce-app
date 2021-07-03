@@ -48,6 +48,15 @@ pip install djoser
 npm run serve
 ```
 
+## Vue.js CLI
+```
+npm install -g @vue/cli
+```
+## Create Vue
+```
+vue create app
+```
+
 ### Compiles and minifies for production
 ```
 npm run build
@@ -56,6 +65,10 @@ npm run build
 ### Lints and fixes files
 ```
 npm run lint
+```
+### Package bulma
+```
+npm install bulma
 ```
 
 ### Package for API
