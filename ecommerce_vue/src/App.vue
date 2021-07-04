@@ -1,32 +1,50 @@
 <template>
-  <div id="app">
-    <div id="nav">
-      <router-link to="/">Home</router-link> |
-      <router-link to="/about">About</router-link>
+  <div id="wrapper">
+    <div class="navbar is-dark">
+      <div class="navbar-brand">
+        <router-link to="/" class="navbar-item">
+          <strong>E-Commerce</strong>
+        </router-link>
+        <button
+          class="navbar-burger"
+          aria-labelledby="menu"
+          aria-expanded="false"
+          data-targer="navbar-menu"
+        >
+          <span aria-hidden="true"></span>
+          <span aria-hidden="true"></span>
+          <span aria-hidden="true"></span>
+        </button>
+      </div>
+      <div class="navbar-menu" id="navbar-menu">
+        <div class="navbar-end">
+          <router-link to="/summer" class="navbar-item">Summer</router-link>
+          <router-link to="/summer" class="navbar-item">Winter</router-link>
+          <div class="navbar-item">
+            <div class="buttons">
+              <router-link to="/login" class="button is-light">
+                Login
+              </router-link>
+              <router-link to="/cart" class="button is-success">
+                <span class="icon"><i class="fas fa-shopping-cart"></i></span>
+                <span>Cart</span>
+              </router-link>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
-    <router-view/>
+    <section class="section">
+      <router-view />
+    </section>
+    <footer class="footer">
+      <p class="has-text-right">
+       © E-Commerce.
+      </p>
+    </footer>
   </div>
 </template>
 
 <style lang="scss">
-#app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-}
-
-#nav {
-  padding: 30px;
-
-  a {
-    font-weight: bold;
-    color: #2c3e50;
-
-    &.router-link-exact-active {
-      color: #42b983;
-    }
-  }
-}
+@import "../node_modules/bulma";
 </style>
