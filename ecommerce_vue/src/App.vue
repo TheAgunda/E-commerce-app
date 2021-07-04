@@ -10,13 +10,18 @@
           aria-labelledby="menu"
           aria-expanded="false"
           data-targer="navbar-menu"
+          @click="showMobileMenu = !showMobileMenu"
         >
           <span aria-hidden="true"></span>
           <span aria-hidden="true"></span>
           <span aria-hidden="true"></span>
         </button>
       </div>
-      <div class="navbar-menu" id="navbar-menu">
+      <div
+        class="navbar-menu"
+        id="navbar-menu"
+        v-bind:class="{ 'is-active': showMobileMenu }"
+      >
         <div class="navbar-end">
           <router-link to="/summer" class="navbar-item">Summer</router-link>
           <router-link to="/summer" class="navbar-item">Winter</router-link>
@@ -26,8 +31,8 @@
                 Login
               </router-link>
               <router-link to="/cart" class="button is-success">
-                <span class="icon"><i class="fas fa-shopping-cart"></i></span>
-                <span>Cart</span>
+                <span class="icon"><i class="fas fa fa-shopping-cart"></i></span>
+                <span>Cart</span> 
               </router-link>
             </div>
           </div>
@@ -38,12 +43,20 @@
       <router-view />
     </section>
     <footer class="footer">
-      <p class="has-text-right">
-       © E-Commerce.
-      </p>
+      <p class="has-text-right">© E-Commerce.</p>
     </footer>
   </div>
 </template>
+<script>
+export default {
+  data() {
+    return {
+      showMobileMenu: false,
+    };
+  },
+};
+</script>
+
 
 <style lang="scss">
 @import "../node_modules/bulma";
