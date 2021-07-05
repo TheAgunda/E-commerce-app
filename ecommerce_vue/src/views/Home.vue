@@ -24,7 +24,9 @@
           <figure class="image mb-4">
             <img v-bind:src="product.get_thumbnail" />
           </figure>
-          <h3 class="is-size-4"></h3>
+          <h3 class="is-size-5">{{ product.name }}</h3>
+          <p class="is-size-6 has-text-grey">₹ {{ product.price }}</p>
+          View Details
         </div>
       </div>
     </div>
@@ -49,7 +51,7 @@ export default {
       axios
         .get("/api/v1/latest-products/")
         .then((response) => {
-          // this.latestProductList = response.data
+          this.latestProductList = response.data;
           console.log(response);
         })
         .catch((error) => {
@@ -59,3 +61,10 @@ export default {
   },
 };
 </script>
+<style scoped>
+.image {
+  margin-right: -1.25rem;
+  margin-left: -1.25rem;
+  margin-top: -1.25rem;
+}
+</style>
