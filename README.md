@@ -79,6 +79,13 @@ npm install axios
 npm install axios vue-axios
 ```
 
+```
+npm install --no-audit
+```
+
+```
+npm config set fund false
+```
 ### Customize configuration
 See [Configuration Reference](https://cli.vuejs.org/config/).
 
