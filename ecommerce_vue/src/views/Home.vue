@@ -39,7 +39,7 @@
 </template>
 
 <script>
-import axios from "axios";
+import {Axios} from "../axios.js";
 export default {
   name: "Home",
   components: {},
@@ -53,7 +53,8 @@ export default {
   },
   methods: {
     getLatestProducts() {
-      axios
+      console.log(Axios.baseURL)
+      Axios
         .get("/api/v1/latest-products/")
         .then((response) => {
           this.latestProductList = response.data;
