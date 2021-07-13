@@ -21,7 +21,7 @@ export default new Vuex.Store({
       }
     },
     addToCart(state, item) {
-      const exists = state.cart.item.filter(i => i.product.id === item.product.id)
+      const exists = state.cart.items.filter(i => i.product.id === item.product.id)
       if (exists.length) {
         exists[0].quantity = parseInt(exists[0].quantity) + parseInt(item.quantity)
       } else {
