@@ -39,7 +39,7 @@
 </template>
 
 <script>
-import {Axios} from "../axios.js";
+import { Axios } from "../axios.js";
 export default {
   name: "Home",
   components: {},
@@ -52,17 +52,17 @@ export default {
     this.getLatestProducts();
   },
   methods: {
-    getLatestProducts() {
-      console.log(Axios.baseURL)
-      Axios
-        .get("/api/v1/latest-products/")
+    async getLatestProducts() {
+      this.$store.commit("setIsLoading", true);
+      await Axios.get("/api/v1/latest-products/")
         .then((response) => {
           this.latestProductList = response.data;
-          console.log(response);
+          document.title = "Home | E-Commerce";
         })
         .catch((error) => {
           console.log(error);
         });
+      this.$store.commit("setIsLoading", false);
     },
   },
 };

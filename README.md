@@ -86,6 +86,11 @@ npm install --no-audit
 ```
 npm config set fund false
 ```
+
+### bulma toast
+```
+npm install bulma-toast
+```
 ### Customize configuration
 See [Configuration Reference](https://cli.vuejs.org/config/).
 
