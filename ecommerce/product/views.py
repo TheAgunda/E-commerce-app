@@ -4,7 +4,7 @@ from django.http import Http404
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from . models import Product, Category
-from . serializers import ProductSerializers
+from . serializers import ProductSerializers, CategorySerializers
 
 
 class LatestProductsList(APIView):
