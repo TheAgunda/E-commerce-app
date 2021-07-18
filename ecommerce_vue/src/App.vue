@@ -35,7 +35,9 @@
                   />
                 </div>
                 <div class="control">
-                  <button class="button is-success"><span class="icon"><i class="fas fa fa-search"></i></span></button>
+                  <button class="button is-success">
+                    <span class="icon"><i class="fas fa fa-search"></i></span>
+                  </button>
                 </div>
               </div>
             </form>
@@ -76,6 +78,7 @@
   </div>
 </template>
 <script>
+import { Axios } from "./axios";
 export default {
   data() {
     return {
@@ -87,6 +90,12 @@ export default {
   },
   beforeCreate() {
     this.$store.commit("initializeStore");
+    const token = this.$store.state.token;
+    if (token) {
+      Axios.defaults.headers.common["Authorization"] = "Token" + token;
+    } else {
+      Axios.defaults.headers.common["Authorization"] = "";
+    }
   },
   mounted() {
     this.cart = this.$store.state.cart;
