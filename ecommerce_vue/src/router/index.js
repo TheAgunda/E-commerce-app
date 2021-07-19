@@ -9,6 +9,7 @@ import Cart from '../views/Cart.vue'
 import SignUp from '../views/SignUp.vue'
 import Login from '../views/Login.vue'
 import MyAccount from '../views/MyAccount.vue'
+import Checkout from '../views/Checkout.vue'
 
 Vue.use(VueRouter)
 
@@ -55,6 +56,14 @@ const routes = [
     component: Cart
   },
   {
+    path: '/cart/checkout',
+    name: "Checkout",
+    component: Checkout,
+    meta: {
+      requireLogin: true,
+    }
+  },
+  {
     path: '/:category_slug/:product_slug',
     name: "Product",
     component: Product
@@ -80,7 +89,7 @@ router.beforeEach((to, from, next) => {
     next({
       name: "Login",
       query: { to: to.path }
-    }  )
+    })
   }
   else {
     next()

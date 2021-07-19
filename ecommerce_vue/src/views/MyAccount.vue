@@ -25,5 +25,8 @@ export default {
       this.$router.push("/");
     },
   },
+  mounted() {
+    document.title = "My account | E-Commerce";
+  },
 };
 </script>

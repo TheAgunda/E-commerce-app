@@ -57,6 +57,7 @@ export default {
   },
   mounted() {
     this.cart = this.$store.state.cart;
+    document.title = "Cart | E-Commerce";
   },
   methods: {
     removeFromCart(item) {
