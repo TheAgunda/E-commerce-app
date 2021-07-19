@@ -1,4 +1,5 @@
 import Vue from 'vue'
+import store from '../store'
 import VueRouter from 'vue-router'
 import Home from '../views/Home.vue'
 import Product from '../views/Product.vue'
@@ -7,6 +8,7 @@ import Search from '../views/Search.vue'
 import Cart from '../views/Cart.vue'
 import SignUp from '../views/SignUp.vue'
 import Login from '../views/Login.vue'
+import MyAccount from '../views/MyAccount.vue'
 
 Vue.use(VueRouter)
 
@@ -33,6 +35,14 @@ const routes = [
     path: '/log-in',
     name: "Login",
     component: Login
+  },
+  {
+    path: '/my-account',
+    name: "MyAccount",
+    component: MyAccount,
+    meta: {
+      requireLogin: true,
+    }
   },
   {
     path: '/search',
@@ -64,4 +74,16 @@ const router = new VueRouter({
   routes
 })
 
+router.beforeEach((to, from, next) => {
+
+  if (to.matched.some(record => record.meta.requireLogin) && !store.state.isAuthenticated) {
+    next({
+      name: "Login",
+      query: { to: to.path }
+    }  )
+  }
+  else {
+    next()
+  }
+})
 export default router
