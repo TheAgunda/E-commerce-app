@@ -47,12 +47,14 @@ export default {
     };
   },
   mounted() {
-    document.title = "Login In | E-commerce";
+    document.title = "LogIn | E-commerce";
   },
   methods: {
     async submitForm() {
       Axios.defaults.headers.common["Authorization"] = "";
+
       localStorage.removeItem("token");
+
       const formData = {
         username: this.username,
         password: this.password,
@@ -63,8 +65,7 @@ export default {
           this.$store.commit("setToken", token);
           Axios.defaults.headers.common["Authorization"] = "Token " + token;
           localStorage.setItem("token", token);
-          const toPath = this.$route.query.to || "cart";
-          console.log(toPath);
+          const toPath = this.$route.query.to || "/cart";
           this.$router.push(toPath);
         })
         .catch((error) => {

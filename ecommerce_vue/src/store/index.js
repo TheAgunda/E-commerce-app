@@ -40,11 +40,11 @@ export default new Vuex.Store({
     setIsLoading(state, status) {
       state.isLoading = status
     },
-    setToken(state, status) {
+    setToken(state, token) {
       state.token = token
       state.isAuthenticated = true
     },
-    removeToken(state, status) {
+    removeToken(state) {
       state.token = ''
       state.isAuthenticated = false
     }
