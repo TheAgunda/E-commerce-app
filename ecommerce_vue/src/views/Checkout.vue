@@ -36,7 +36,7 @@
     </div>
     <div class="column is-12">
       <h2 class="subtitle">Shopping Details</h2>
-      <p>* All Field are required</p>
+      <p class="has-text-grey mb-4">* All Field are required</p>
       <div class="columns is-multiline">
         <div class="column is-6">
           <div class="field">
@@ -59,11 +59,11 @@
           <div class="field">
             <label for=" ">Email *</label>
             <div class="control">
-              <input type="text" class="input" v-model="email" autocomplete />
+              <input type="email" class="input" v-model="email" autocomplete />
             </div>
           </div>
           <div class="field">
-            <label for=" ">Phone</label>
+            <label for=" ">Phone *</label>
             <div class="control">
               <input type="text" class="input" v-model="phone" autocomplete />
             </div>
@@ -90,6 +90,19 @@
           </div>
         </div>
       </div>
+      <div class="notification is-danger mt-4" v-if="errors.length">
+        <p v-for="error in errors" v-bind:key="error">
+          {{ error }}
+        </p>
+      </div>
+      <hr />
+      <div id="card-element" class="mb-5"></div>
+      <template v-if="cartTotalLength">
+        <hr />
+        <button class="button is-dark" @click="submitForm">
+          Pay with Stripe
+        </button>
+      </template>
     </div>
   </div>
 </template>
@@ -122,6 +135,30 @@ export default {
   methods: {
     getItemTotal(item) {
       return item.quantity * item.product.price;
+    },
+    submitForm() {
+      this.errors = [];
+      if (this.first_name === "") {
+        this.errors.push("First Name is missing.");
+      }
+      if (this.last_name === "") {
+        this.errors.push("Last Name is missing.");
+      }
+      if (this.email === "") {
+        this.errors.push("Email is missing.");
+      }
+      if (this.phone === "") {
+        this.errors.push("Phone number is missing.");
+      }
+      if (this.address === "") {
+        this.errors.push("Address is missing.");
+      }
+      if (this.zipcode === "") {
+        this.errors.push("Zipcode is missing.");
+      }
+      if (this.place === "") {
+        this.errors.push("Place is missing.");
+      }
     },
   },
   computed: {
