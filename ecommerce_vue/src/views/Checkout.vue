@@ -131,6 +131,16 @@ export default {
   mounted() {
     document.title = "Checkout | E-Commerce";
     this.cart = this.$store.state.cart;
+
+    if (this.cartTotalLength > 0) {
+      this.stripe = Stripe(
+        "pk_test_51BTUDGJAJfZb9HEBwDg86TN1KNprHjkfipXmEDMb0gSCassK5T3ZfxsAbcgKVmAIXF7oZ6ItlZZbXO6idTHE67IM007EwQ4uN3"
+      );
+
+      const elements = this.stripe.elements();
+      this.card = elements.create("card", { hidePostalCode: true });
+      this.card.mount('#card-element')
+    }
   },
   methods: {
     getItemTotal(item) {
@@ -159,6 +169,53 @@ export default {
       if (this.place === "") {
         this.errors.push("Place is missing.");
       }
+      if (!this.errors.length) {
+        this.$store.commit("setIsLoading", true);
+        this.stripe.createToken(this.cart).then((result) => {
+          if (result.error) {
+            this.$store.commit("setIsLoading", false);
+            this.errors.push(
+              "Something went wrong with Stripe. Please try againe"
+            );
+            console.log(result.error.message);
+          } else {
+            this.stripeTokenHandler(result.token);
+          }
+        });
+      }
+    },
+    async stripeTokenHandler(token) {
+      const items = [];
+      for (let i = 0; i < this.cart.items.length; i++) {
+        const item = this.cart.items[i];
+        const obj = {
+          product: item.product.id,
+          quantity: item.quantity,
+          price: item.product.price * item.quantity,
+        };
+        item.push(obj);
+      }
+      const data = {
+        first_name: this.first_name,
+        last_name: this.last_name,
+        email: this.email,
+        phone: this.phone,
+        address: this.address,
+        zipcode: this.zipcode,
+        place: this.place,
+        items: items,
+        stripe_token: token.id,
+      };
+      await Axios.post("/api/v1/checkout/", data)
+        .then((response) => {
+          this.$$store.commit("clearCart");
+          this.$router.push("/cart/success");
+        })
+        .catch((error) => {
+          this.errors.push("Something went wrong please try again");
+          console.log(error);
+        });
+      this.$store.commit("setIsLoading", false);
     },
   },
   computed: {

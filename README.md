@@ -43,6 +43,11 @@ pip install django-cors-headers
 ```
 pip install djoser
 ```
+
+### Stripe
+```
+pip install stripe
+```
 ### Compiles and hot-reloads for development
 ```
 npm run serve
