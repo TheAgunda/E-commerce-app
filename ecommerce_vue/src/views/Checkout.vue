@@ -136,10 +136,9 @@ export default {
       this.stripe = Stripe(
         "pk_test_51BTUDGJAJfZb9HEBwDg86TN1KNprHjkfipXmEDMb0gSCassK5T3ZfxsAbcgKVmAIXF7oZ6ItlZZbXO6idTHE67IM007EwQ4uN3"
       );
-
       const elements = this.stripe.elements();
       this.card = elements.create("card", { hidePostalCode: true });
-      this.card.mount('#card-element')
+      this.card.mount("#card-element");
     }
   },
   methods: {
@@ -171,7 +170,7 @@ export default {
       }
       if (!this.errors.length) {
         this.$store.commit("setIsLoading", true);
-        this.stripe.createToken(this.cart).then((result) => {
+        this.stripe.createToken(this.card).then((result) => {
           if (result.error) {
             this.$store.commit("setIsLoading", false);
             this.errors.push(
@@ -193,7 +192,7 @@ export default {
           quantity: item.quantity,
           price: item.product.price * item.quantity,
         };
-        item.push(obj);
+        items.push(obj);
       }
       const data = {
         first_name: this.first_name,
@@ -208,6 +207,7 @@ export default {
       };
       await Axios.post("/api/v1/checkout/", data)
         .then((response) => {
+          console.log(response);
           this.$$store.commit("clearCart");
           this.$router.push("/cart/success");
         })

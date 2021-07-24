@@ -17,7 +17,7 @@ from . serializers import OrderSerializers
 @authentication_classes([authentication.TokenAuthentication])
 @permission_classes([permissions.IsAuthenticated])
 def checkout(request):
-    serializer = OrderSerializers(category)
+    serializer = OrderSerializers(data=request.data)
     if serializer.is_valid():
         stripe.api_key = settings.STRIPE_SECRET_KEY
         paid_amound = sum(item.get('quantity')* item.get('product').price for item in serializer.validated_data['items'])
