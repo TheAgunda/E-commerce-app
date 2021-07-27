@@ -207,8 +207,7 @@ export default {
       };
       await Axios.post("/api/v1/checkout/", data)
         .then((response) => {
-          console.log(response);
-          this.$$store.commit("clearCart");
+          this.$store.commit("clearCart");
           this.$router.push("/cart/success");
         })
         .catch((error) => {
