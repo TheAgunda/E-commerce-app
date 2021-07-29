@@ -43,16 +43,17 @@ INSTALLED_APPS = [
     "corsheaders",
     "djoser",
     "product",
-    "order"
+    "order",
 ]
 CORS_ALLOW_CREDENTIALS = True
 CORS_ORIGIN_ALLOW_ALL = True
 CORS_ALLOWED_ORIGINS = [
     "http://127.0.0.1:8080",
+    "*",
 ]
 
 CORS_ORIGIN_WHITELIST = [
-    'http://127.0.0.1:8080',
+    "http://127.0.0.1:8080",
     "http://127.0.0.1:8080",
 ]
 MIDDLEWARE = [
@@ -136,7 +137,7 @@ USE_TZ = True
 
 STATIC_URL = "/static/"
 MEDIA_URL = "/media/"
-MEDIA_ROOT = BASE_DIR / 'media/'
+MEDIA_ROOT = BASE_DIR / "media/"
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/3.2/ref/settings/#default-auto-field

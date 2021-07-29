@@ -7,26 +7,56 @@
       <div class="column is-12">
         <button @click="logout()" class="button is-danger">LogOut</button>
       </div>
+
+      <div class="column is-12">
+        <h2>My Orders</h2>
+        <OrderSummary
+          v-for="order in orders"
+          v-bind:key="order.id"
+          v-bind:order="order"
+        />
+      </div>
     </div>
   </div>
 </template>
 <script>
 import { Axios } from "../axios.js";
+import OrderSummary from "@/components/OrderSummary.vue";
 export default {
   name: "MyAccount",
+  components: {
+    OrderSummary,
+  },
+  data() {
+    return {
+      orders: [],
+    };
+  },
+  mounted() {
+    document.title = "My account | E-Commerce";
+    this.getMyOrder();
+  },
   methods: {
     logout() {
       Axios.defaults.headers.common["Authorization"] = "";
-
       localStorage.removeItem("token");
       localStorage.removeItem("username");
       localStorage.removeItem("userid");
       this.$store.commit("removeToken");
       this.$router.push("/");
     },
-  },
-  mounted() {
-    document.title = "My account | E-Commerce";
+    async getMyOrder() {
+      this.$store.commit("setIsLoading", true);
+      await Axios.get(`/api/v1/orders`)
+        .then((response) => {
+          this.orders = response.data;
+          console.log(response);
+        })
+        .catch((error) => {
+          console.log(error);
+        });
+      this.$store.commit("setIsLoading", false);
+    },
   },
 };
 </script>
